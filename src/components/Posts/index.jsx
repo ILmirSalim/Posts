@@ -1,12 +1,12 @@
 import React from "react";
-import { Post } from "./components/Post";
+import { Post } from "../Posts/components/Post";
 import * as SC from './styles'
 
 export const Posts = ({posts}) => (
 <>
-    <SC.Title>Свежие публикации</SC.Title>
+    
     <SC.Posts>
-        {posts.map((post)=> <Post post={post}/>)}
+        {posts.map((post)=> <Post key={post.id} post={post}/>)}
     </SC.Posts>
 </>
 )
