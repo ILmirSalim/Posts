@@ -1,3 +1,3 @@
 import React from "react";
 
-export const EditPost = () => <>Это страница редактирования поста</>
+export const EditPostPage = () => <>Это страница редактирования поста</>
