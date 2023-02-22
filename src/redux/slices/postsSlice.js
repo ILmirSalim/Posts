@@ -1,41 +1,45 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { postAPI } from '../../api/postAPI'
 
 const initialState = {
-  list: [
-    {
-      id: 1,
-      title: 'Post 1',
-      image: 'https://a.d-cd.net/_UAAAgDoneA-480.jpg',
-      text: "this is first post "
-    },
-    {
-      id: 2,
-      title: 'Post 2',
-      image: 'https://a.d-cd.net/_UAAAgDoneA-480.jpg',
-      text: "this is second post "
-    },
-    {
-      id: 3,
-      title: 'Post 3',
-      image: 'https://a.d-cd.net/_UAAAgDoneA-480.jpg',
-      text: "this is third post "
-    },
-    {
-      id: 4,
-      title: 'Post 4',
-      image: 'https://a.d-cd.net/_UAAAgDoneA-480.jpg',
-      text: "this is four post "
-    },
-    {
-      id: 5,
-      title: 'Post 5',
-      image: 'https://a.d-cd.net/_UAAAgDoneA-480.jpg',
-      text: "this is five post "
-    },
-  ],
-  postForView: null,
-  freshPosts: null
+  posts: {
+    list: null,
+    loading: false
+  },
+  postForView: {
+    post: null,
+    loading: false
+  },
+  freshPosts: {
+    posts: null,
+    loading: false
+  }
 }
+
+
+export const getPostById = createAsyncThunk(
+  'post/fetchById',
+  async (postId) => {
+    const response = await postAPI.fetchById(postId)
+    return response
+  }
+)
+
+export const getFreshPosts = createAsyncThunk(
+  'posts/fetchFreshPosts',
+  async (limit) => {
+    const response = await postAPI.fetchFreshPosts(limit)
+    return response
+  }
+)
+
+export const getPosts = createAsyncThunk(
+  'posts/fetchPosts',
+  async () => {
+    const response = await postAPI.fetchPosts()
+    return response
+  }
+)
 
 export const postsSlice = createSlice({
   name: 'posts',
@@ -43,25 +47,63 @@ export const postsSlice = createSlice({
 
   reducers: {
 
-    setPosts: (state, action) => {
-      state.list = action.payload
-    },
     editPost: (state) => {
       
     },
-    getPost: (state, action) => {
-      state.postForView = state.list.find((item)=>item.id===action.payload)
-    },
+ //slice(0, 3)
     addPost: (state,action) => {
 
     },
-    getFreshPosts: (state) => {
-      state.freshPosts = state.list.slice(0, 3)
+    
+  },
+
+  extraReducers: (builder) => {
+
+    builder.addCase(getPostById.pending, (state) => {
+      state.postForView = {
+        post: null,
+        loading: true
+      }
+      })
+
+    builder.addCase(getPostById.fulfilled, (state, action) => {
+    state.postForView = {
+      post: action.payload,
+      loading: false
     }
+    })
+
+    builder.addCase(getPosts.pending, (state) => {
+      state.posts = {
+        list: null,
+        loading: true
+      }
+    })
+
+    builder.addCase(getPosts.fulfilled, (state, action) => {
+      state.posts = {
+        list: action.payload,
+        loading: false
+      }
+    })
+
+    builder.addCase(getFreshPosts.pending, (state) => {
+      state.freshPosts = {
+        posts: null,
+        loading: true
+      }
+    })
+
+    builder.addCase(getFreshPosts.fulfilled, (state, action) => {
+      state.freshPosts = {
+        posts: action.payload,
+        loading: false
+      }
+    })
   },
 })
 
 
-export const { setPosts, editPost, getPost, addPost, getFreshPosts } = postsSlice.actions
+export const { editPost, addPost } = postsSlice.actions
 
 export default postsSlice.reducer

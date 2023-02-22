@@ -2,10 +2,12 @@
 import styled from 'styled-components'
 
 export const Post = styled.div`
- display: flex:
- flex-direction: column;
- gap: 15px;
- justify-content: space-between;
+    display: flex:
+    flex-direction: column;
+    gap: 15px;
+    justify-content: space-between;
+    flex: 1 1;
+    min-width: 300px;
 `
 
 export const Image = styled.img`
