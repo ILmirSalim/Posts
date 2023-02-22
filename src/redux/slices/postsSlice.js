@@ -50,9 +50,11 @@ export const postsSlice = createSlice({
     editPost: (state) => {
       
     },
- //slice(0, 3)
+ 
     addPost: (state,action) => {
-
+      const newPost = {...action.payload}
+      newPost.id = new Date().getTime()
+      state.posts.list = state.posts.list ? [action.payload, [...state.posts.list]] : [action.payload]
     },
     
   },

@@ -6,7 +6,7 @@ import { Typo } from "../../../components/Typo";
 import { useSelector, useDispatch } from "react-redux";
 import * as SC from './styled'
 import { getPostById } from "../../../redux/slices/postsSlice";
-import Loader from "../../../components/Loader/loader";
+import Loader from "../../../Loader/loader"
 
 export const DetailPostPage = () => {
 
