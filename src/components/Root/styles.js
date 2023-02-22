@@ -10,7 +10,7 @@ export const Menu = styled.div`
 
 export const MenuItem = styled(NavLink)`
 font-size: 16px;
-margin-left: 100px;
+margin-left: 70px;
 text-decoration: none;
 color: black;
 &.active {
