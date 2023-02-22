@@ -5,24 +5,34 @@ import { Link } from "../../../components/Link";
 import { Typo } from "../../../components/Typo";
 import { useSelector, useDispatch } from "react-redux";
 import * as SC from './styled'
-import { getPost } from "../../../redux/slices/postsSlice";
+import { getPostById } from "../../../redux/slices/postsSlice";
+import Loader from "../../../components/Loader/loader";
 
 export const DetailPostPage = () => {
 
     const {id} = useParams()
+
     const postForView = useSelector((state) => state.posts.postForView)
     const dispatch = useDispatch()
-    useEffect(()=> {
-        dispatch(getPost(Number(id)))
-    }, [id])
 
-    if (!postForView) {
+    useEffect(()=> {
+        dispatch(getPostById(Number(id)))
+    }, [id])
+    
+    if (postForView.loading) {
+        return <Container><Loader/></Container>
+    }
+
+    if (!postForView.post || !postForView.post.hasOwnProperty('id')) {
         return <>Пост не найден</>
     }
+    
+    const {post} = postForView
+    const image = post.image || 'https://mir-s3-cdn-cf.behance.net/projects/404/e249b959879647.Y3JvcCwxNTM3LDEyMDMsMTk3LDA.png'
     return <Container>
-        <Typo>{postForView.title}</Typo>
-        <SC.Image src={postForView.image} alt={postForView.title} />
-        <SC.Text>{postForView.text}</SC.Text>
+        <Typo>{post.title}</Typo>
+        <SC.Image src={image} alt={post.title} />
+        <SC.Text>{post.body}</SC.Text>
         <Link to='/posts/'>Вернуться к постам</Link>
     </Container>
 
