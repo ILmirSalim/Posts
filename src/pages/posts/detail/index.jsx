@@ -5,22 +5,32 @@ import { Link } from "../../../components/Link";
 import { Typo } from "../../../components/Typo";
 import { useSelector, useDispatch } from "react-redux";
 import * as SC from './styled'
-import { getPostById } from "../../../redux/slices/postsSlice";
+import { getPostById, showPost } from "../../../redux/slices/postsSlice";
 import Loader from "../../../Loader/loader"
+
 
 export const DetailPostPage = () => {
 
     const {id} = useParams()
-
+    const {list} = useSelector((state) => state.posts.posts)
     const postForView = useSelector((state) => state.posts.postForView)
     const dispatch = useDispatch()
 
+    const intId = Number(id)
+    const findedPosts = list ? list.find((item) => item.id ===intId) : undefined
     useEffect(()=> {
-        dispatch(getPostById(Number(id)))
-    }, [id])
+        if (findedPosts) {
+            dispatch(showPost(findedPosts))
+        } else {
+            dispatch(getPostById(intId))
+        }
+        
+    }, [id, list, dispatch])
     
     if (postForView.loading) {
-        return <Container><Loader/></Container>
+        return  <Container>
+                    <Loader/>
+                </Container>
     }
 
     if (!postForView.post || !postForView.post.hasOwnProperty('id')) {
@@ -33,7 +43,12 @@ export const DetailPostPage = () => {
         <Typo>{post.title}</Typo>
         <SC.Image src={image} alt={post.title} />
         <SC.Text>{post.body}</SC.Text>
-        <Link to='/posts/'>Вернуться к постам</Link>
+
+        <SC.LinkWrapper>
+            <Link to='/posts/'>Вернуться к постам</Link>
+            <Link to={`/posts/${post.id}/edit`}>Редактировать пост</Link>
+        </SC.LinkWrapper>
+        
     </Container>
 
 }
