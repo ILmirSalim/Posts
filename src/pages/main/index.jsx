@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import { Container } from "../../components/container";
+import { Container } from "../../components/UI components/container";
 import { Posts } from '../../components/Posts/';
-import { Typo } from "../../components/Typo";
-import Loader from "../../Loader/loader";
+import { Typo } from "../../components/UI components/Typo";
+import Loader from "../../components/UI components/Loader/loader";
 import { getFreshPosts } from "../../redux/slices/postsSlice";
 
 export const MainPage = () => {
