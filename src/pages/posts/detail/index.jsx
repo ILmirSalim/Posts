@@ -1,12 +1,12 @@
 import React, { useEffect, useState} from "react";
-import { redirect, useNavigate, useParams } from "react-router-dom";
-import { Container } from "../../../components/container";
-import { Link } from "../../../components/Link";
-import { Typo } from "../../../components/Typo";
+import { useNavigate, useParams } from "react-router-dom";
+import { Container } from "../../../components/UI components/container";
+import { Link } from "../../../components/UI components/Link/index";
+import { Typo } from "../../../components/UI components/Typo/index";
 import { useSelector, useDispatch } from "react-redux";
 import * as SC from './styled'
 import { deletePost, getPostById, showPost } from "../../../redux/slices/postsSlice";
-import Loader from "../../../Loader/loader"
+import Loader from "../../../components/UI components/Loader/loader"
 
 
 export const DetailPostPage = () => {
@@ -41,11 +41,10 @@ export const DetailPostPage = () => {
     }
     
     const onDeletePost = () => {
-        
-        dispatch(deletePost(postForView))
+        dispatch(deletePost(postForDelete))
         setPostForDelete(null)
         navigate('/posts')
-        // redirect('/posts')
+
     }
 
     const {post} = postForView
