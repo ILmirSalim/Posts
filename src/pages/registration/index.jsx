@@ -5,6 +5,7 @@ import { Form } from "../../components/UI components/Form";
 import { Field } from "../../components/UI components/Field/index";
 import { Input } from "../../components/UI components/Input";
 import { useNavigate } from "react-router-dom";
+import { ButtonBlack } from "../../components/UI components/ButtonBlack";
 
 export const RegistrationPage = () => {
 
@@ -95,7 +96,7 @@ export const RegistrationPage = () => {
                     onChange={(e)=> onChange(e.target.name, e.target.value)}
                 />
             </Field>
-            <button type="submit" disabled={disabled}>Регистрация</button>
+            <ButtonBlack type="submit" disabled={disabled}>Регистрация</ButtonBlack>
         </Form>
     </Container>
 )}    

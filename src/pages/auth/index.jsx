@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ButtonBlack } from "../../components/UI components/ButtonBlack/styles";
 import { Container } from "../../components/UI components/container";
 import { Field } from "../../components/UI components/Field";
 import { Form } from "../../components/UI components/Form";
@@ -66,7 +67,7 @@ export const AuthPage = () => {
                     onChange={(e)=> onChange(e.target.name, e.target.value)}
                 />
             </Field>
-            <button type="submit" disabled={disabled}>Авторизация</button>
+            <ButtonBlack type="submit" disabled={disabled}>Авторизация</ButtonBlack>
             </Form>
     </Container>
 }
