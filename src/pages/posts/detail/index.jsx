@@ -12,16 +12,22 @@ import Loader from "../../../components/UI components/Loader/loader"
 export const DetailPostPage = () => {
 
     const {id} = useParams()
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
+
     const {list} = useSelector((state) => state.posts.posts)
     const postForView = useSelector((state) => state.posts.postForView)
+    const {user} = useSelector((state)=> state.auth)
 
     const [postForDelete, setPostForDelete] = useState(null)
 
     const intId = Number(id)
+
     const findedPosts = list ? list.find((item) => item.id ===intId) : undefined
+
     useEffect(()=> {
+
         if (findedPosts) {
             dispatch(showPost(findedPosts))
         } else {
@@ -44,11 +50,13 @@ export const DetailPostPage = () => {
         dispatch(deletePost(postForDelete))
         setPostForDelete(null)
         navigate('/posts')
-
     }
 
     const {post} = postForView
+
     const image = post.image || 'https://mir-s3-cdn-cf.behance.net/projects/404/e249b959879647.Y3JvcCwxNTM3LDEyMDMsMTk3LDA.png'
+
+    const showEditAndDeleteBtn = list && user
     return <Container>
         {postForDelete && <SC.ModalWrapper>
             <SC.Modal>
@@ -66,8 +74,8 @@ export const DetailPostPage = () => {
 
         <SC.LinkWrapper>
             <Link to='/posts/'>Вернуться к постам</Link>
-            {list && <Link to={`/posts/${post.id}/edit`}>Редактировать пост</Link>}
-            {list && <SC.DeleteButton onClick={() => setPostForDelete(post)}>Удалить пост</SC.DeleteButton>}
+            {showEditAndDeleteBtn && <Link to={`/posts/${post.id}/edit`}>Редактировать пост</Link>}
+            {showEditAndDeleteBtn && <SC.DeleteButton onClick={() => setPostForDelete(post)}>Удалить пост</SC.DeleteButton>}
         </SC.LinkWrapper>
         
     </Container>
