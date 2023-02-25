@@ -54,6 +54,7 @@ export const RegistrationPage = () => {
     }
 
     const disabled = !formValues.email || !formValues.password
+    
     return (
     <Container>
         <Typo>Страница регистрации</Typo>
