@@ -11,12 +11,13 @@ export const Menu = styled.div`
 export const MenuItem = styled(NavLink)`
 font-size: 16px;
 margin-left: 70px;
+margin-right: 30px;
 text-decoration: none;
 color: black;
 &.active {
     color: blue;
 }
-&hover: {
+&:hover {
     text-decoration: underline;
 }
 `

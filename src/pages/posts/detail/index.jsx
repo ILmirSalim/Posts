@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from "react-redux";
 import * as SC from './styled'
 import { deletePost, getPostById, showPost } from "../../../redux/slices/postsSlice";
 import Loader from "../../../components/UI components/Loader/loader"
+import { Modal } from "../../../components/UI components/Modal";
+import { Button } from "../../../components/UI components/Button";
 
 
 export const DetailPostPage = () => {
@@ -58,15 +60,13 @@ export const DetailPostPage = () => {
 
     const showEditAndDeleteBtn = list && user
     return <Container>
-        {postForDelete && <SC.ModalWrapper>
-            <SC.Modal>
+        {postForDelete && <Modal>
                 <SC.Modaltext>Вы точно уверены, что хотите удалить публикацию с ID - {postForDelete.id}?</SC.Modaltext>
                 <SC.ModalContent>
-                    <SC.DeleteButton onClick={onDeletePost} >Да</SC.DeleteButton>
-                    <button onClick={() => setPostForDelete(null)}>Нет</button>
+                    <Button onClick={onDeletePost} >Да</Button>
+                    <Button onClick={() => setPostForDelete(null)}>Нет</Button>
                 </SC.ModalContent>
-            </SC.Modal>
-        </SC.ModalWrapper>}
+            </Modal>}
         
         <Typo>{post.title}</Typo>
         <SC.Image src={image} alt={post.title} />
@@ -75,7 +75,7 @@ export const DetailPostPage = () => {
         <SC.LinkWrapper>
             <Link to='/posts/'>Вернуться к постам</Link>
             {showEditAndDeleteBtn && <Link to={`/posts/${post.id}/edit`}>Редактировать пост</Link>}
-            {showEditAndDeleteBtn && <SC.DeleteButton onClick={() => setPostForDelete(post)}>Удалить пост</SC.DeleteButton>}
+            {showEditAndDeleteBtn && <Button onClick={() => setPostForDelete(post)}>Удалить пост</Button>}
         </SC.LinkWrapper>
         
     </Container>

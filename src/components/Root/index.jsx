@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Container } from "../../components/UI components/container/index";
 import { logout } from "../../redux/slices/authSlice";
+import { Button } from "../UI components/Button";
 import * as SC from "./styles";
 
 export const Root = () => { 
@@ -22,7 +23,7 @@ export const Root = () => {
             {user &&<SC.MenuItem to="/posts/add">Добавление поста</SC.MenuItem>}
             {!user && <SC.MenuItem to="auth">Авторизация</SC.MenuItem>}
             {!user &&<SC.MenuItem to="registration">Регистрация</SC.MenuItem>}
-            {user && <button onClick={onClickExitBtn}>Выход</button>}
+            {user && <Button onClick={onClickExitBtn}>Выход</Button>}
         </SC.Menu>
         <Outlet/>
     </Container>
