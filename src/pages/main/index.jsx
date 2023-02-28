@@ -4,7 +4,7 @@ import { Container } from "../../components/UI components/container";
 import { Posts } from '../../components/Posts/';
 import { Typo } from "../../components/UI components/Typo";
 import Loader from "../../components/UI components/Loader/loader";
-import { getFreshPosts, getPostsPagin} from "../../redux/slices/postsSlice";
+import {getPostsPagin} from "../../redux/slices/postsSlice";
 
 export const MainPage = () => {
   
@@ -20,8 +20,6 @@ export const MainPage = () => {
           dispatch(getPostsPagin(1))
         }
   }, [dispatch])
-  console.log(list)
-
   
   if (!list && loading) {
     return <Loader/>
