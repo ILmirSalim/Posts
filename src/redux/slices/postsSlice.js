@@ -4,7 +4,8 @@ import { postAPI } from '../../api/postAPI'
 const initialState = {
   posts: {
     list: null,
-    loading: false
+    loading: false,
+    
   },
   postForView: {
     post: null,
@@ -13,8 +14,23 @@ const initialState = {
   freshPosts: {
     posts: null,
     loading: false
+  },
+  postsForMainPage: {
+    postsForMain: null,
+    loading: false,
+    
   }
+
 }
+
+export const getfetchPosts = createAsyncThunk(
+  'post/getfetchPosts',
+  async () => {
+    const response = await postAPI.fetchPosts()
+    return response
+  }
+)
+
 
 
 export const getPostById = createAsyncThunk(
@@ -33,10 +49,10 @@ export const getFreshPosts = createAsyncThunk(
   }
 )
 
-export const getPosts = createAsyncThunk(
-  'posts/fetchPosts',
-  async () => {
-    const response = await postAPI.fetchPosts()
+export const getPostsPagin = createAsyncThunk(
+  'postsPagin/fetchPosts',
+  async (currentPage) => {
+    const response = await postAPI.fetchPostsPagin(currentPage)
     return response
   }
 )
@@ -46,7 +62,18 @@ export const postsSlice = createSlice({
   initialState,
 
   reducers: {
+    sortPostBySelect: (state) => {
+      state.posts.list = state.posts.list.sort((a, b) => a.title > b.title ? 1 : -1)
+    },
 
+    sortByInputPost: (state, action) => {
+      state.posts.list = action.payload ? state.posts.list = state.posts.list.filter((post) => post.title.toLowerCase().includes(action.payload.toLowerCase())) : !state.posts.list
+    },
+
+    freshPostInPage: (state) => {
+      state.posts.list = state.posts.list.splice(state.posts.list.length-3)
+    },
+   
     editPost: (state, action) => {
       state.posts.list = state.posts.list.map((post)=> {
         if (post.id===action.payload.id) {
@@ -92,19 +119,20 @@ export const postsSlice = createSlice({
     }
     })
 
-    builder.addCase(getPosts.pending, (state) => {
+    builder.addCase(getPostsPagin.pending, (state) => {
       state.posts = {
         list: null,
         loading: true
       }
     })
 
-    builder.addCase(getPosts.fulfilled, (state, action) => {
+    builder.addCase(getPostsPagin.fulfilled, (state, action) => {
       state.posts = {
         list: action.payload,
         loading: false
       }
     })
+
 
     builder.addCase(getFreshPosts.pending, (state) => {
       state.freshPosts = {
@@ -119,10 +147,24 @@ export const postsSlice = createSlice({
         loading: false
       }
     })
+
+    builder.addCase(getfetchPosts.pending, (state) => {
+      state.postsForMainPage = {
+        postsForMain: null,
+        loading: true
+      }
+    })
+
+    builder.addCase(getfetchPosts.fulfilled, (state, action) => {
+      state.postsForMainPage = {
+        postsForMain: action.payload,
+        loading: false
+      }
+    })
   },
 })
 
 
-export const { editPost, addPost, showPost, deletePost } = postsSlice.actions
+export const { editPost, addPost, showPost, deletePost,  sortPostBySelect, sortByInputPost, freshPostInPage} = postsSlice.actions
 
 export default postsSlice.reducer

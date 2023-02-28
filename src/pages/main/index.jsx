@@ -4,34 +4,42 @@ import { Container } from "../../components/UI components/container";
 import { Posts } from '../../components/Posts/';
 import { Typo } from "../../components/UI components/Typo";
 import Loader from "../../components/UI components/Loader/loader";
-import { getFreshPosts } from "../../redux/slices/postsSlice";
+import { getFreshPosts, getPostsPagin} from "../../redux/slices/postsSlice";
 
 export const MainPage = () => {
-
+  
   const {post} = useSelector((state) => state.posts.postForView)
-  const {posts, loading} = useSelector((state) => state.posts.freshPosts)
+
+  const {list, loading} = useSelector((state) => state.posts.posts)
+  // const {posts,loading} = useSelector((state) => state.posts.freshPosts) // 
   
   const dispatch = useDispatch()
-  
-  useEffect(()=>{
-    dispatch(getFreshPosts())
-  }, [])
 
-   return <>
-        {loading && <Loader/>}
-        <Container>
-            {posts &&
-            <>
-              <Typo>Свежие публикации</Typo>
-              <Posts posts={posts}/>
-            </>
-            }
-            {post && <>
-              <Typo>Последний просмотренный пост</Typo>
-              <Posts posts={[post]}/>
-            </>
-            }
-        </Container>
+  useEffect(()=>{
+        if (!list) {
+          dispatch(getPostsPagin(1))
+        }
+  }, [dispatch])
+  console.log(list)
+
+  
+  if (!list && loading) {
+    return <Loader/>
+  }
+  
+  return <>
+      <Container>
+      <Typo>Свежие публикации</Typo>
+      
+          {list &&
+            <Posts posts={list}/>} 
+          
+          {post && <>
+            <Typo>Последний просмотренный пост</Typo>
+            <Posts posts={[post]}/>
+          </>
+          }
+      </Container>
     </>
 }
   
