@@ -6,9 +6,9 @@ import { Typo } from "../../components/UI components/Typo";
 import Loader from "../../components/UI components/Loader/loader";
 import {  getPostsPagin, sortByInputPost, sortPostBySelect} from "../../redux/slices/postsSlice";
 import { Pagination } from "../../components/Pagination";
-import { Filter } from "../../components/Filter";
-import {Input} from '../../components/UI components/Input/index'
-import * as SC from './styles'
+// import { Filter } from "../../components/Filter";
+// import {Input} from '../../components/UI components/Input/index'
+// import * as SC from './styles'
 
 export const PostsPage = () => {
 
@@ -40,24 +40,24 @@ export const PostsPage = () => {
     return <>404</>
   }
 
-  const selectByFilterName = (event) => {
+  // const selectByFilterName = (event) => {
     
-    if (event.target.value==="0") {
-      dispatch(getPostsPagin(currentPage))
+  //   if (event.target.value==="0") {
+  //     dispatch(getPostsPagin(currentPage))
     
-    } else if (event.target.value==="1") {
-        dispatch(sortPostBySelect())
-    }
-  }
+  //   } else if (event.target.value==="1") {
+  //       dispatch(sortPostBySelect())
+  //   }
+  // }
 
-    const filterByInputValue = (value) => {
-      dispatch(sortByInputPost(value))
-    }
+  //   const filterByInputValue = (value) => {
+  //     dispatch(sortByInputPost(value))
+  //   }
     
   return <Container>
     <Typo>Публикации</Typo>
-    <Filter selectByFilterName={selectByFilterName}/>
-    <SC.Wrapper><Input  onChange={(event) => filterByInputValue(event.target.value)}/></SC.Wrapper>
+    {/* <Filter selectByFilterName={selectByFilterName}/>
+    <SC.Wrapper><Input  onChange={(event) => filterByInputValue(event.target.value)}/></SC.Wrapper> */}
     <Posts posts={list}/>
     <Pagination changeCurrentPage={changeCurrentPage}
     currentPage={currentPage}

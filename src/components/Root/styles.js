@@ -6,6 +6,7 @@ export const Menu = styled.div`
     gap: 15px;
     align-items: center;
     justify-content: space-between;
+    margin-left: 80px;
 `
 
 export const MenuItem = styled(NavLink)`
