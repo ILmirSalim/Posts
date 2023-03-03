@@ -86,7 +86,7 @@ export const postsSlice = createSlice({
     addPost: (state,action) => {
       const newPost = {...action.payload}
       newPost.id = new Date().getTime()
-      state.posts.list = state.posts.list ? [...state.posts.list, newPost] : [newPost]
+      state.posts.list = state.posts.list ? [newPost, ...state.posts.list] : [newPost]
     },
     showPost: (state, action) => {
       state.postForView = {

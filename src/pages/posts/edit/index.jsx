@@ -14,6 +14,7 @@ export const EditPostPage = () => {
    
     const onSubmitForm = (formValues) => {
         dispatch(editPost(formValues))
+        alert('Изменения успешно внесены!')
     }
    
     if (!list) {

@@ -15,25 +15,27 @@ export const AuthPage = () => {
 
     const dispatch = useDispatch()
 
-    const onChange = (name, value) => {
+    const onChange = (name, value,) => {
+        
         setFormValues({...formValues, [name]: value})
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault()
         try {
 
             const users = JSON.parse(localStorage.getItem('users'))
 
             if (!users) {
                 alert('Данный пользователь не найден в системе')
-                return
+                return 
             }
 
             const currentUser = users.find((user)=> user.email === formValues.email && user.password === formValues.password)
             
             if (!currentUser) {
                 alert('Данный пользователь не найден в системе')
-                return
+                return 
             }
 
             dispatch(login(currentUser))
@@ -54,7 +56,8 @@ export const AuthPage = () => {
                     type="text" 
                     name="email"
                     value={formValues.email} 
-                    placeholder="email" 
+                    placeholder="email"
+                    autoComplete='off' 
                     onChange={(e)=> onChange(e.target.name, e.target.value)}
                 />
             </Field>
@@ -64,6 +67,7 @@ export const AuthPage = () => {
                     name="password"
                     value={formValues.password} 
                     placeholder="Пароль" 
+                    autoComplete='off'
                     onChange={(e)=> onChange(e.target.name, e.target.value)}
                 />
             </Field>

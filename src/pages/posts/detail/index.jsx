@@ -60,13 +60,17 @@ export const DetailPostPage = () => {
 
     const showEditAndDeleteBtn = list && user
     return <Container>
-        {postForDelete && <Modal>
-                <SC.Modaltext>Вы точно уверены, что хотите удалить публикацию с ID - {postForDelete.id}?</SC.Modaltext>
-                <SC.ModalContent>
-                    <Button onClick={onDeletePost} >Да</Button>
-                    <Button onClick={() => setPostForDelete(null)}>Нет</Button>
-                </SC.ModalContent>
-            </Modal>}
+        {postForDelete && 
+                <SC.ModalWrapper>
+                    <Modal>
+                        <SC.Modaltext>Вы точно уверены, что хотите удалить публикацию с ID - {postForDelete.id}?</SC.Modaltext>
+                        <SC.ModalContent>
+                            <Button onClick={onDeletePost} >Да</Button>
+                            <Button onClick={() => setPostForDelete(null)}>Нет</Button>
+                        </SC.ModalContent>
+                    </Modal>
+                </SC.ModalWrapper>
+            }
         
         <Typo>{post.title}</Typo>
         <SC.Image src={image} alt={post.title} />

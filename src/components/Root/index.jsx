@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Container } from "../../components/UI components/container/index";
 import { logout } from "../../redux/slices/authSlice";
+import { getPostsPagin, sortByInputPost, sortPostBySelect } from "../../redux/slices/postsSlice";
+import { Filter } from "../Filter";
 import { Button } from "../UI components/Button";
 import * as SC from "./styles";
 
@@ -15,6 +17,20 @@ export const Root = () => {
         dispatch(logout())
         navigate('/auth')
     }
+
+    const selectByFilterName = (event, currentPage) => {
+    
+        if (event.target.value==="0") {
+          dispatch(getPostsPagin(currentPage))
+        
+        } else if (event.target.value==="1") {
+            dispatch(sortPostBySelect())
+        }
+      }
+    
+        const filterByInputValue = (value) => {
+          dispatch(sortByInputPost(value))
+        }
     return(<>
     <Container>
         <SC.Menu>
@@ -25,6 +41,9 @@ export const Root = () => {
             {!user &&<SC.MenuItem to="registration">Регистрация</SC.MenuItem>}
             {user && <Button onClick={onClickExitBtn}>Выход</Button>}
         </SC.Menu>
+
+        <Filter selectByFilterName={selectByFilterName} filterByInputValue={filterByInputValue}/>
+        
         <Outlet/>
     </Container>
 </>)}
