@@ -1,19 +1,15 @@
 import React from "react";
+import * as SC from './styles'
 
-import './Style.css'
+export const Pagination = ({ changeCurrentPage, pages, currentPage }) => (
 
-export const Pagination = ({changeCurrentPage, paginNumbersPage, currentPage}) => {
-
-    return (
-       
-        <div className="wrapper">
-        {paginNumbersPage.map((page)=>(
-            <div key={page} 
-                onClick={()=>changeCurrentPage(page)}
-                className={currentPage===page ? 'action' : 'noAction' }>
+    <SC.Wrapper>
+        {pages.map((page) => (
+            <SC.Pages key={page}
+                onClick={() => changeCurrentPage(page)}
+                active={currentPage === page}>
                 {page}
-            </div>
+            </SC.Pages>
         ))}
-        </div>        
-    )
-}
+    </SC.Wrapper>
+)

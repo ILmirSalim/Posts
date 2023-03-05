@@ -2,7 +2,7 @@
 import styled from 'styled-components'
 
 export const Post = styled.div`
-    display: flex:
+    display: flex;
     flex-direction: column;
     gap: 15px;
     justify-content: space-between;

@@ -1,45 +1,43 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector} from "react-redux";
-import { Container } from "../../components/UI components/container";
+import { useDispatch, useSelector } from "react-redux";
+import { Container } from "../../components/ui-components/container";
 import { Posts } from '../../components/Posts/';
-import { Typo } from "../../components/UI components/Typo";
-import Loader from "../../components/UI components/Loader/loader";
-import {getPostsPagin} from "../../redux/slices/postsSlice";
+import { Typo } from "../../components/ui-components/Typo";
+import Loader from "../../components/ui-components/Loader/loader";
+import { getPostsPagin } from "../../redux/slices/postsSlice";
 
 export const MainPage = () => {
-  
-  const {post} = useSelector((state) => state.posts.postForView)
 
-  const {list, loading} = useSelector((state) => state.posts.posts)
-  // const {posts,loading} = useSelector((state) => state.posts.freshPosts) // 
-  
+  const { post } = useSelector((state) => state.posts.postForView)
+
+  const { list, loading } = useSelector((state) => state.posts.posts)
+
   const dispatch = useDispatch()
 
-  useEffect(()=>{
-        if (!list) {
-          dispatch(getPostsPagin(1))
-        }
-  }, [dispatch])
-  
+  useEffect(() => {
+    if (!list) {
+      dispatch(getPostsPagin(1))
+    }
+  }, [dispatch, list])
+
   if (!list && loading) {
-    return <Loader/>
+    return <Loader />
   }
-  
+
   return <>
-      <Container>
+    <Container>
       <Typo>Свежие публикации</Typo>
-      
-          {list &&
-            <Posts posts={list}/>} 
-          
-          {post && <>
-            <Typo>Последний просмотренный пост</Typo>
-            <Posts posts={[post]}/>
-          </>
-          }
-      </Container>
-    </>
+      {list &&
+        <Posts posts={list} />
+      }
+
+      {post && <>
+        <Typo>Последний просмотренный пост</Typo>
+        <Posts posts={[post]} />
+      </>}
+    </Container>
+  </>
 }
-  
+
 
 
