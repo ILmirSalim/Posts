@@ -23,32 +23,28 @@ const initialState = {
 export const getfetchPosts = createAsyncThunk(
   'post/getfetchPosts',
   async () => {
-    const response = await postAPI.fetchPosts()
-    return response
+    return await postAPI.fetchPosts()
   }
 )
 
 export const getPostById = createAsyncThunk(
   'post/fetchById',
   async (postId) => {
-    const response = await postAPI.fetchById(postId)
-    return response
+    return await postAPI.fetchById(postId)
   }
 )
 
 export const getFreshPosts = createAsyncThunk(
   'posts/fetchFreshPosts',
   async (limit) => {
-    const response = await postAPI.fetchFreshPosts(limit)
-    return response
+    return await postAPI.fetchFreshPosts(limit)
   }
 )
 
 export const getPostsPagin = createAsyncThunk(
   'postsPagin/fetchPosts',
   async (currentPage) => {
-    const response = await postAPI.fetchPostsPagin(currentPage)
-    return response
+    return await postAPI.fetchPostsPagin(currentPage)
   }
 )
 
@@ -60,15 +56,9 @@ export const postsSlice = createSlice({
     sortPostBySelect: (state) => {
       state.posts.list = state.posts.list.sort((a, b) => a.title > b.title ? 1 : -1)
     },
-
-    sortByInputPost: (state, action) => {
+    sortPostsInput: (state, action) => {
       state.posts.list = action.payload ? state.posts.list = state.posts.list.filter((post) => post.title.toLowerCase().includes(action.payload.toLowerCase())) : !state.posts.list
     },
-
-    freshPostInPage: (state) => {
-      state.posts.list = state.posts.list.splice(state.posts.list.length - 3)
-    },
-
     editPost: (state, action) => {
       state.posts.list = state.posts.list.map((post) => {
         if (post.id === action.payload.id) {
@@ -77,7 +67,6 @@ export const postsSlice = createSlice({
         return post
       })
     },
-
     addPost: (state, action) => {
       const newPost = { ...action.payload }
       newPost.id = new Date().getTime()
@@ -158,6 +147,6 @@ export const postsSlice = createSlice({
   },
 })
 
-export const { editPost, addPost, showPost, deletePost, sortPostBySelect, sortByInputPost, freshPostInPage } = postsSlice.actions
+export const { editPost, addPost, showPost, deletePost, sortPostBySelect, sortPostsInput } = postsSlice.actions
 
 export default postsSlice.reducer

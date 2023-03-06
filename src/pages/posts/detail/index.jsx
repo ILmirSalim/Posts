@@ -10,33 +10,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { deletePost, getPostById, showPost } from "../../../redux/slices/postsSlice";
 import * as SC from './styled'
 
-
 export const DetailPostPage = () => {
-
-    const { id } = useParams()
-
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
+    const { id } = useParams()
     const { list } = useSelector((state) => state.posts.posts)
-    const postForView = useSelector((state) => state.posts.postForView)
     const { user } = useSelector((state) => state.auth)
-
+    const postForView = useSelector((state) => state.posts.postForView)
     const [postForDelete, setPostForDelete] = useState(null)
 
     const intId = Number(id)
-
     const findedPosts = list ? list.find((item) => item.id === intId) : undefined
 
     useEffect(() => {
-
         if (findedPosts) {
             dispatch(showPost(findedPosts))
         } else {
             dispatch(getPostById(intId))
         }
 
-    }, [id, list, dispatch])
+    }, [id, list, findedPosts, intId, dispatch])
 
     if (postForView.loading) {
         return <Container>
@@ -49,22 +43,16 @@ export const DetailPostPage = () => {
     }
 
     const onDeletePost = () => {
-
         dispatch(deletePost(postForDelete))
-
         setPostForDelete(null)
-
         navigate('/posts')
     }
 
     const { post } = postForView
-
     const image = post.image || 'https://mir-s3-cdn-cf.behance.net/projects/404/e249b959879647.Y3JvcCwxNTM3LDEyMDMsMTk3LDA.png'
-
     const showEditAndDeleteBtn = list && user
 
     return <Container>
-
         {postForDelete &&
             <SC.ModalWrapper>
                 <Modal>

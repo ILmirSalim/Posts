@@ -4,7 +4,6 @@ import { addPost } from "../../../redux/slices/postsSlice";
 import { PostForm } from "../components/PostForm";
 
 export const AddPostPage = () => {
-
     const dispatch = useDispatch()
 
     const onSubmitForm = (formValues) => {

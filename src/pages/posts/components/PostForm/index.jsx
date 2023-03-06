@@ -8,21 +8,18 @@ import * as SC from './styles'
 
 const DEFAULT_VALUES = { title: '', body: '' }
 
-export const PostForm = ({ title, onSubmitForm, defaultValues }) => {
+export const PostForm = ({ title, onSubmitForm, initialState }) => {
 
-    const [formValues, setFormValues] = useState(defaultValues || DEFAULT_VALUES)
+    const [formValues, setFormValues] = useState(initialState || DEFAULT_VALUES)
 
     const onChange = (name, value) => {
         setFormValues({ ...formValues, [name]: value })
     }
 
     const onSubmit = (e) => {
-
         e.preventDefault()
-
         onSubmitForm(formValues)
-
-        !defaultValues && setFormValues(DEFAULT_VALUES)
+        !initialState && setFormValues(DEFAULT_VALUES)
     }
 
     const disabled = !formValues.title || !formValues.body
