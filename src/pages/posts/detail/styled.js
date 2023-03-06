@@ -14,26 +14,12 @@ export const Text = styled.div`
 
 export const LinkWrapper = styled.div`
     text-align: center;
-    margin: 15 0 0 0;
+    margin-top: 15px;
     display: flex;
     justify-content: center;
     gap: 15px;
     padding-top: 15px;
     align-items: center;
-`
-export const DeleteButton = styled.button`
-    border: 1px solid;
-    background: white;
-    padding: 5px 10px;
-    color: black;
-    border-radius: 10px;
-    cursor: pointer;
-
-    &:hover {
-        background: red;
-        color: white;
-        border: 1px solid black;
-    }
 `
 
 export const ModalWrapper = styled.div`
@@ -44,19 +30,6 @@ export const ModalWrapper = styled.div`
     height: 100%;
     background: rgb(0, 0, 0, 0.5);
     z-index: 1;
-`
-
-export const Modal = styled.div`
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    color: black;
-    border: 1px solid black;
-    padding: 10px 20px;
-    background: white;
-    border-radius: 25px;
 `
 
 export const Modaltext = styled.div`

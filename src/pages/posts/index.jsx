@@ -8,13 +8,10 @@ import { getPostsPagin } from "../../redux/slices/postsSlice";
 import { Pagination } from "../../components/Pagination";
 
 export const PostsPage = () => {
-
   const { list, loading, } = useSelector((state) => state.posts.posts)
-
   const dispatch = useDispatch()
 
   const [currentPage, setCurrentPage] = useState(1)
-
   const pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
   const changeCurrentPage = (page) => {
@@ -23,11 +20,9 @@ export const PostsPage = () => {
   }
 
   useEffect(() => {
-
     if (!list) {
       dispatch(getPostsPagin(currentPage))
     }
-
   }, [currentPage, list, dispatch])
 
   if (!list && loading) {

@@ -7,11 +7,8 @@ import Loader from "../../components/ui-components/Loader/loader";
 import { getPostsPagin } from "../../redux/slices/postsSlice";
 
 export const MainPage = () => {
-
   const { post } = useSelector((state) => state.posts.postForView)
-
   const { list, loading } = useSelector((state) => state.posts.posts)
-
   const dispatch = useDispatch()
 
   useEffect(() => {

@@ -12,9 +12,7 @@ import { login } from "../../redux/slices/authSlice";
 export const AuthPage = () => {
 
     const [formValues, setFormValues] = useState({ email: "", password: "" })
-
     const navigate = useNavigate()
-
     const dispatch = useDispatch()
 
     const onChange = (name, value,) => {
@@ -22,29 +20,22 @@ export const AuthPage = () => {
     }
 
     const onSubmit = (e) => {
-
         e.preventDefault()
-
         try {
-
             const users = JSON.parse(localStorage.getItem('users'))
 
             if (!users) {
                 alert('Данный пользователь не найден в системе')
                 return
             }
-
             const currentUser = users.find((user) => user.email === formValues.email && user.password === formValues.password)
-
             if (!currentUser) {
                 alert('Данный пользователь не найден в системе')
                 return
             }
-
             dispatch(login(currentUser))
-
             navigate('/posts')
-
+            
         } catch (error) {
             console.log(error)
         }

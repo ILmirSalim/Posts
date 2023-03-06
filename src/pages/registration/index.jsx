@@ -8,47 +8,33 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui-components/Button";
 
 export const RegistrationPage = () => {
-
     const [formValues, setFormValues] = useState({ name: '', surname: '', email: '', password: '' })
-
-    const userId = Date.now()
-
-    const newUser = { id: userId, ...formValues }
-
     const navigate = useNavigate()
 
     const onSubmit = (e) => {
-
         e.preventDefault()
-
+        const userId = Date.now()
+        const newUser = { id: userId, ...formValues }
+    
         try {
-
             const users = JSON.parse(localStorage.getItem('users'))
 
             if (!users) {
-
                 localStorage.setItem('users', JSON.stringify([newUser]))
-
                 alert('Вы успешно зарегистрировались!')
-
                 navigate('/auth')
-
                 return
             }
 
             if (users.find((user) => user.email === formValues.email)) {
-
                 alert('Пользователь с таким именем уже существует!')
-
                 return
             }
 
             users.push(newUser)
-
             localStorage.setItem('users', JSON.stringify(users))
 
             alert('Вы успешно зарегистрировались!')
-
             navigate('/auth')
 
         } catch (error) {

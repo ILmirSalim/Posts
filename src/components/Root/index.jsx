@@ -3,13 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import { Container } from "../../components/ui-components/container/index";
 import { logout } from "../../redux/slices/authSlice";
-import { getPostsPagin, sortByInputPost, sortPostBySelect } from "../../redux/slices/postsSlice";
+import { getPostsPagin, sortPostsInput, sortPostBySelect } from "../../redux/slices/postsSlice";
 import { Filter } from "../Filter";
 import { Button } from "../ui-components/Button";
 import * as SC from "./styles";
 
 export const Root = () => {
-
   const { user } = useSelector((state) => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -20,17 +19,15 @@ export const Root = () => {
   }
 
   const selectByFilterName = (event, currentPage) => {
-
     if (event.target.value === "0") {
       dispatch(getPostsPagin(currentPage))
       return
     }
-
     dispatch(sortPostBySelect())
   }
 
   const filterByInputValue = (event) => {
-    dispatch(sortByInputPost(event.target.value))
+    dispatch(sortPostsInput(event.target.value))
   }
 
   return (<>
@@ -45,7 +42,6 @@ export const Root = () => {
       </SC.Menu>
 
       <Filter selectByFilterName={selectByFilterName} filterByInputValue={filterByInputValue} />
-
       <Outlet />
     </Container>
   </>)

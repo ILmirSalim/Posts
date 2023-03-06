@@ -1,6 +1,5 @@
 import React from "react";
 import { Input } from "../ui-components/Input";
-
 import * as SC from './styles'
 
 export const Filter = ({ selectByFilterName, filterByInputValue }) => {
