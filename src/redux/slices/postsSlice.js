@@ -57,7 +57,9 @@ export const postsSlice = createSlice({
       state.posts.list = state.posts.list.sort((a, b) => a.title > b.title ? 1 : -1)
     },
     sortPostsInput: (state, action) => {
-      state.posts.list = action.payload && state.posts.list.filter((post) => post.title.toLowerCase().includes(action.payload.toLowerCase())) 
+      state.posts.list = action.payload && 
+      state.posts.list.filter((post) => 
+      post.title.toLowerCase().includes(action.payload.toLowerCase())) 
     },
     editPost: (state, action) => {
       state.posts.list = state.posts.list.map((post) => {
